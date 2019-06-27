@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-namespace Void.devtools.UI
+namespace BaanlohDev.UI
 {
-    public class ProgressBar : MaskableGraphic
+    public sealed class ProgressBar : MaskableGraphic
     {
         private static readonly ColorOrGradient DEFAULT_FOREGROUND = new ColorOrGradient(
             Color.green,
@@ -61,7 +64,11 @@ namespace Void.devtools.UI
         }
         #endregion
 
+#if UNITY_EDITOR
         protected override void OnValidate()
+#else
+        private void OnValidate()
+#endif
         {
             m_widthPerPoint = Mathf.Max(m_widthPerPoint, 0);
             m_maxValue = Mathf.Max(m_maxValue, 0);
